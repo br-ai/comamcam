@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div style="padding-bottom: 150px;"></div>
+  <!-- ======= On Focus Section ======= -->
+  <section id="onfocus" class="onfocus">
+    {% for candidat in candidats %}
+    <div class="container-fluid p-0" data-aos="fade-up">
+      <!-- <div class="col-lg-30 col-30 text-center">
+        <h2 class="mb-lg-5 mb-4">Decouvrez Samantha Fodjo</h2>
+      </div> -->
+      <div class="container">
+        <h3 class="text-center section-subheading"  style="margin-top: 25px;">- Votez pour -</h3>
+        <h1 class="text-center section-heading">{{candidat.nom}} {{candidat.prenom}}</h1>
+      </div>
+      <div class="row g-0">
+        <div class="col-lg-6 video-play position-relative">
+          <!-- <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox play-btn"></a> -->
+          <img src="{{candidat.profile_image.url}}" class="img-flui" alt="">
+        </div>
+        <div class="col-lg-6">
+          <div class="content d-flex flex-column justify-content-center h-100">
+            <h3>Nombre de Votes actuels <span style="text-decoration: underline;">{{candidat.nombreVote}}</span></h3>
+            <p class="fst-italic">
+              {{candidat.projet}}
+            </p>
+            <ul>
+              <li><i class="bi bi-check-circle"></i> Nom & Prenom : {{candidat.nom}} {{candidat.prenom}}</li>
+              <li><i class="bi bi-check-circle"></i> Age : {{candidat.age}}</li>
+              <li><i class="bi bi-check-circle"></i> Numero : {{candidat.numero}} </li>
+            </ul>
+            <div style="text-align: center; align-items: center; justify-content: center;">
+                <a href="{% url 'candidatDetail' candidat.numero %}" class="btn custom-btn" style="text-align: center;">Votez pour moi</a>
+  
+                </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    {% endfor %}
+  </section><!-- End On Focus Section -->
+
+
+
+{% endblock %}
+        
