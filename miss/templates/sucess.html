@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+
+
+<div style="padding-bottom: 150px;"></div>
+  <!-- ======= On Focus Section ======= -->
+  <section id="onfocus" class="onfocus">
+
+    <div class="container-fluid p-0" data-aos="fade-up">
+      <!-- <div class="col-lg-30 col-30 text-center">
+        <h2 class="mb-lg-5 mb-4">Decouvrez Samantha Fodjo</h2>
+      </div> -->
+      <div class="container">
+        <h3 class="text-center section-subheading"  style="margin-top: 25px;color:green;">- Operation Reussie -</h3>
+        <h1 class="text-center section-heading"> {{message}}</h1>
+      </div>
+
+
+    </div>
+    <div style="text-align: center; align-items: center; justify-content: center;">
+        <a href="{% url 'home' %}" class="btn custom-btn">Acceuil</a>
+    </div>
+  </section><!-- End On Focus Section -->
+
+
+{% endblock %}

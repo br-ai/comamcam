@@ -24,12 +24,16 @@ urlpatterns = [
 
     path("actualite/<int:id>", views.actualite, name="actualite"),
 
+    path("notification", views.notification, name="notification"),
+
     path("evenement", views.evenement, name="evenement"),
 
     path('transaction/', views.TransactionApiView.as_view({'get': 'list', 'post':'create', 'patch':'partial_update', 'put':'update' }), name='transaction'),
     path('transaction/<int:pk>', views.TransactionApiView.as_view({'get': 'retrieve', 'patch':'partial_update', 'put':'update', 'delete':'destroy'}), name='transaction'),
 
-   
-    
+    path("sucess", views.sucess, name="sucess"),
+    path("erreur", views.erreur, name="erreur"),
+
+
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

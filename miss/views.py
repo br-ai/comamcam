@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
-from .models import Candidate, Souscription, Transaction, Candidat, Actualites
+from .models import Candidate, Souscription, Transaction, Candidat, Actualites, Notification
 from .serializers import TransactionSerializer
-import string    
+import string
 import random
 import requests
 import json
 from rest_framework import viewsets
+from django.db.models import F
+from django.http import HttpResponse
 
 # Create your views here.
 def home(request):
@@ -79,16 +81,16 @@ def votez(request, id):
     #make a post and return a response in a variable call resp
     resp = requests.post(
 
-        'https://bsend-op.com/api/v1.0/payment/control', 
+        'https://bsend-op.com/api/v1.0/payment/control',
         data=json.dumps(data),
         timeout = 30,
         verify = True,
         headers={"User-agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.80 Safari/537.36", "Content-Type": "application/json"},
-        
+
     )
-    
+
     data = resp.json()
-    
+
     if data['response'] == "Success":
         return redirect(data['payment_url'])
     else:
@@ -128,16 +130,16 @@ def votezH(request, id):
     #make a post and return a response in a variable call resp
     resp = requests.post(
 
-        'https://bsend-op.com/api/v1.0/payment/control', 
+        'https://bsend-op.com/api/v1.0/payment/control',
         data=json.dumps(data),
         timeout = 30,
         verify = True,
         headers={"User-agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.80 Safari/537.36", "Content-Type": "application/json"},
-        
+
     )
-    
+
     data = resp.json()
-    
+
     if data['response'] == "Success":
         return redirect(data['payment_url'])
     else:
@@ -147,7 +149,16 @@ def votezH(request, id):
 class TransactionApiView(viewsets.ModelViewSet):
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
- 
 
+def notification(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        message = request.POST['message']
+        Notification.objects.create(email=email, message=message)
+        return render(request, 'sucess.html', {'message': 'Merci de nous avoir contacté',})
 
-# def Success(request)
+def sucess(request):
+    return render(request, 'sucess.html', {'message': 'Votre vote a été bien enregistré',})
+
+def erreur(request):
+    return render(request, 'erreur.html', {'message': 'Malheureusement une erreur est parvenue lors de la demande de vote',})
